@@ -6,22 +6,34 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 19:09:21 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/18 21:05:30 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*process_token(char *str_i, unsigned char *in_word,
-size_t start, size_t i)
+char	*process_token(const char *str_i, unsigned char *in_word,
+const char *start, size_t i)
 {
+	char	*test;
+
 	*in_word = 0;
-	ft_printf("%zu, %zu\n", start, i);
-	return (NULL);
+	if ((test = ft_strndup(start, i)) == NULL)
+		return (NULL);
+	return (test);
 }
 
-int		parse_input(char *str_i, char **tokens)
+static void	init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
+unsigned char *is_quoted)
+{
+	*start = 0;
+	*ntoken = 0;
+	*in_word = 0;
+	*is_quoted = 0;
+}
+
+int		parse_input(const char *str_i, char **tokens)
 {
 	unsigned char	in_word;
 	size_t			ntoken;
@@ -30,27 +42,25 @@ int		parse_input(char *str_i, char **tokens)
 	size_t			i;
 
 	i = 0;
-	start = 0;
-	ntoken = 0;
-	in_word = 0;
-	is_quoted = 0;
-	while (str_i[i++])
+	init_var(&start, &ntoken, &in_word, &is_quoted);
+	while (str_i[i])
 	{
 		if (is_metachar(str_i[i]) && !is_quoted)
 		{
-			if (in_word > 0 && (tokens[ntoken] = process_token(str_i,
-		&in_word, start, i - start)) == NULL)
+			if (in_word > 0 && (tokens[ntoken - 1] = process_token(str_i,
+		&in_word, &(str_i[start]), i - start)) == NULL)
 				return (1);
 		}
 		else if (str_i[i] == '\'')
 			is_quoted = !is_quoted;
 		else if (in_word == 0 && ++ntoken && ++in_word)
 			start = i;
+		i++;
 	}
 	return (0);
 }
 
-size_t	count_tokens(char *str_i)
+size_t	count_tokens(const char *str_i)
 {
 	unsigned char	in_word;
 	size_t			ntoken;
@@ -75,9 +85,9 @@ size_t	count_tokens(char *str_i)
 	return (ntoken);
 }
 
-int     main(void)
+int		main(void)
 {
-	char    buf[BUF_SIZE + 1];
+	char	buf[BUF_SIZE + 1];
 	ssize_t ret;
 	char	**tokens;
 
@@ -91,8 +101,15 @@ int     main(void)
 			return (1);
 		if (parse_input(buf, tokens) != 0)
 			return (1);
-
+		ret = 0;
+		while (tokens[ret])
+		{
+			ft_printf("%s\n", tokens[ret]);
+			ret++;
+		}
 	}
+
+
 	/*
 	**  PARSING
 	*/
