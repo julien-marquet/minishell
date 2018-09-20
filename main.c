@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 18:24:50 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 20:19:18 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,9 +25,10 @@ int		apply_expansion(char **token, char **env)
 			if (expand_dol(token, &i, env, &((*token)[i + 1])) != 0)
 				return (1);
 		}
-		else if ((*token)[i] == '~')
+		else if ((*token)[i] == '~' && i == 0)
 		{
-			//expand_tild(&token, &i);
+			if (expand_tild(token, &i, env, &((*token)[i + 1])) != 0)
+				return (1);
 		}
 		else
 			i++;
