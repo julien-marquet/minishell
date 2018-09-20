@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/20 18:53:06 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 18:58:44 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 22:00:08 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ static void	free_rem_str(char **s1, char **s2)
 	ft_strdel(s2);
 }
 
-int	dol_handle_empty(char **token, size_t *i)
+int			dol_handle_empty(char **token, size_t *i)
 {
 	size_t	token_size;
 	char	*buf;
@@ -36,7 +36,7 @@ int	dol_handle_empty(char **token, size_t *i)
 	return (0);
 }
 
-int	dol_handle_full(char **token, size_t *i, char **env, size_t j)
+int			dol_handle_full(char **token, size_t *i, char **env, size_t j)
 {
 	char	*buf;
 	char	*var_env;

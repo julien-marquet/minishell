@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 15:58:37 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 21:19:20 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 21:58:41 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			expand_dol(char **token, size_t *i, char **env, char *start)
+static int		expand_dol(char **token, size_t *i, char **env, char *start)
 {
 	size_t	j;
 
@@ -26,7 +26,7 @@ int			expand_dol(char **token, size_t *i, char **env, char *start)
 		return (dol_handle_full(token, i, env, j));
 }
 
-int			expand_tild(char **token, size_t *i, char **env, char *start)
+static int		expand_tild(char **token, size_t *i, char **env, char *start)
 {
 	char	*var_env;
 	char	*tmp;
@@ -46,5 +46,28 @@ int			expand_tild(char **token, size_t *i, char **env, char *start)
 	}
 	else
 		*i += 1;
+	return (0);
+}
+
+int				apply_expansion(char **token, char **env)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*token)[i] != '\0')
+	{
+		if ((*token)[i] == '$')
+		{
+			if (expand_dol(token, &i, env, &((*token)[i + 1])) != 0)
+				return (1);
+		}
+		else if ((*token)[i] == '~' && i == 0)
+		{
+			if (expand_tild(token, &i, env, &((*token)[i + 1])) != 0)
+				return (1);
+		}
+		else
+			i++;
+	}
 	return (0);
 }
