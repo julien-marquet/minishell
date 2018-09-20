@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 20:19:18 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 21:43:25 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,19 @@ int		apply_expansion(char **token, char **env)
 	return (0);
 }
 
+void	remove_quotes(char **token)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*token)[i])
+	{
+		if ((*token)[i] == '\'')
+			ft_strcpy(&((*token)[i]), &((*token)[i + 1]));
+		i++;
+	}
+}
+
 char	*process_token(unsigned char *in_word,
 const char *start, size_t i, char **env)
 {
@@ -46,6 +59,7 @@ const char *start, size_t i, char **env)
 		return (NULL);
 	if (apply_expansion(&token, env) != 0)
 		return (NULL);
+	remove_quotes(&token);
 	return (token);
 }
 
