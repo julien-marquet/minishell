@@ -6,43 +6,44 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/19 16:55:58 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 18:24:50 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		apply_expansion(char *token)
+int		apply_expansion(char **token, char **env)
 {
 	size_t	i;
 
 	i = 0;
-	while (token[i] != '\0')
+	while ((*token)[i] != '\0')
 	{
-		if (token[i] == '$')
+		if ((*token)[i] == '$')
 		{
-			if (expand_dol(&token, &i) != 1)
+			if (expand_dol(token, &i, env, &((*token)[i + 1])) != 0)
 				return (1);
 		}
-		else if (token[i] == '~')
+		else if ((*token)[i] == '~')
 		{
 			//expand_tild(&token, &i);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
 
-char	*process_token(const char *str_i, unsigned char *in_word,
-const char *start, size_t i)
+char	*process_token(unsigned char *in_word,
+const char *start, size_t i, char **env)
 {
 	char	*token;
 
 	*in_word = 0;
 	if ((token = ft_strndup(start, i)) == NULL)
 		return (NULL);
-	if (apply_expansion(token) != 0)
+	if (apply_expansion(&token, env) != 0)
 		return (NULL);
 	return (token);
 }
@@ -56,7 +57,7 @@ unsigned char *is_quoted)
 	*is_quoted = 0;
 }
 
-int		parse_input(const char *str_i, char **tokens)
+int		parse_input(const char *str_i, char **tokens, char **env)
 {
 	unsigned char	in_word;
 	size_t			ntoken;
@@ -70,8 +71,8 @@ int		parse_input(const char *str_i, char **tokens)
 	{
 		if (is_metachar(str_i[i]) && !is_quoted)
 		{
-			if (in_word > 0 && (tokens[ntoken - 1] = process_token(str_i,
-		&in_word, &(str_i[start]), i - start)) == NULL)
+			if (in_word > 0 && (tokens[ntoken - 1] = process_token(
+		&in_word, &(str_i[start]), i - start, env)) == NULL)
 				return (1);
 		}
 		else if (str_i[i] == '\'')
@@ -114,7 +115,6 @@ int		main(int ac, char **av, char **env)
 	ssize_t ret;
 	char	**tokens;
 
-	ft_getenv("HOME", env);
 	while (1)
 	{
 		ret = read(0, buf, BUF_SIZE);
@@ -123,7 +123,7 @@ int		main(int ac, char **av, char **env)
 		buf[ret] = '\0';
 		if ((tokens = allocate_tokens(count_tokens(buf))) == NULL)
 			return (1);
-		if (parse_input(buf, tokens) != 0)
+		if (parse_input(buf, tokens, env) != 0)
 			return (1);
 		ret = 0;
 		while (tokens[ret])

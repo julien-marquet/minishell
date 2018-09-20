@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/19 16:03:52 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 16:37:40 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,5 +23,5 @@
 
 int		is_metachar(char c);
 char	**allocate_tokens(size_t ntoken);
-int		expand_dol(char **token, size_t *i);
+int		expand_dol(char **token, size_t *i, char **env, char *start);
 #endif
