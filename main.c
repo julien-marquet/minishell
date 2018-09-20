@@ -6,22 +6,45 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 21:05:30 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/19 16:55:58 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		apply_expansion(char *token)
+{
+	size_t	i;
+
+	i = 0;
+	while (token[i] != '\0')
+	{
+		if (token[i] == '$')
+		{
+			if (expand_dol(&token, &i) != 1)
+				return (1);
+		}
+		else if (token[i] == '~')
+		{
+			//expand_tild(&token, &i);
+		}
+		i++;
+	}
+	return (0);
+}
+
 char	*process_token(const char *str_i, unsigned char *in_word,
 const char *start, size_t i)
 {
-	char	*test;
+	char	*token;
 
 	*in_word = 0;
-	if ((test = ft_strndup(start, i)) == NULL)
+	if ((token = ft_strndup(start, i)) == NULL)
 		return (NULL);
-	return (test);
+	if (apply_expansion(token) != 0)
+		return (NULL);
+	return (token);
 }
 
 static void	init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
@@ -85,12 +108,13 @@ size_t	count_tokens(const char *str_i)
 	return (ntoken);
 }
 
-int		main(void)
+int		main(int ac, char **av, char **env)
 {
 	char	buf[BUF_SIZE + 1];
 	ssize_t ret;
 	char	**tokens;
 
+	ft_getenv("HOME", env);
 	while (1)
 	{
 		ret = read(0, buf, BUF_SIZE);

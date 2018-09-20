@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   helpers.c                                        .::    .:/ .      .::   */
+/*   expansions.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 15:07:46 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/09/19 15:58:37 by jmarquet     #+#   ##    ##    #+#       */
+/*   Updated: 2018/09/19 16:03:58 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-int		is_metachar(char c)
+#include "minishell.h"
+
+int		expand_dol(char **token, size_t *i)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
 	return (0);
 }
