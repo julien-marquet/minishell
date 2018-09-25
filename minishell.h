@@ -6,21 +6,23 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:41:01 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 18:16:01 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define BUF_SIZE 1024
 # include "Libft/libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 # include <dirent.h>
-# define BUF_SIZE 1024
+
 
 /*
 **	Parser
@@ -41,6 +43,7 @@ char	**allocate_tokens(size_t ntoken);
 
 int		is_metachar(char c);
 char	**get_envpath_array(char **env);
+char	*construct_error(const char *target, const char *error);
 
 /*
 **	Expansions

@@ -6,12 +6,21 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:43:00 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 18:07:47 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handle_error(char **err)
+{
+	if (*err != NULL)
+	{
+		ft_printf("-minishell: %s\n", *err);
+		free(*err);
+	}
+}
 
 int		main(int ac, char **av, char **env)
 {
@@ -35,6 +44,7 @@ int		main(int ac, char **av, char **env)
 			return (1);
 		if (dispatch_commands(tokens, env, &err) != 0)
 			return (1);
+		handle_error(&err);
 	}
 	return (0);
 }

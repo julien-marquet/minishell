@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:37:53 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 18:15:44 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,4 +30,20 @@ char	**get_envpath_array(char **env)
 	envpath = ft_strsplit(path, ':');
 	free(path);
 	return (envpath);
+}
+
+char	*construct_error(const char *target, const char *error)
+{
+	size_t	lent;
+	size_t	lene;
+	char	*res;
+
+	lent = ft_strlen(target);
+	lene = ft_strlen(error);
+	if ((res = malloc(lent + lene + 3)) == NULL)
+		return (NULL);
+	ft_strcpy(res, target);
+	ft_strcpy(&(res[lent]), ": ");
+	ft_strcpy(&(res[lent + 2]), error);
+	return (res);
 }

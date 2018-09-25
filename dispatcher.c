@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/21 15:11:43 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:42:16 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 18:16:41 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 
 int		search_builtins(char **token, char **env, char **err)
 {
+	ft_printf("Search in builtins\n");
 	if (ft_strcmp(*token, "echo") == 0 ||
 	ft_strcmp(*token, "cd") == 0 ||
 	ft_strcmp(*token, "setenv") == 0 ||
@@ -22,11 +23,13 @@ int		search_builtins(char **token, char **env, char **err)
 	ft_strcmp(*token, "env") == 0 ||
 	ft_strcmp(*token, "exit") == 0)
 	{
+		ft_printf("found\n");
 		if (exec_builtins(token, env, err) == 0)
 			return (1);
 		else
 			return (-1);
 	}
+	ft_printf("Not found\n");
 	return (0);
 }
 
@@ -53,6 +56,13 @@ char **err)
 	return (0);
 }
 
+int		file_exist(char *filename)
+{
+	struct stat	buffer;
+
+	return (stat(filename, &buffer) == 0);
+}
+
 int		search_envpath(char **token, char **env, char **err)
 {
 	char	**envpath;
@@ -77,6 +87,9 @@ int		search_envpath(char **token, char **env, char **err)
 			return (1);
 		i++;
 	}
+	// free envpath
+	if ((*err = construct_error(*token, "command not found")) == NULL)
+		return (1);
 	ft_printf("not found\n");
 	return (0);
 }
@@ -84,6 +97,21 @@ int		search_envpath(char **token, char **env, char **err)
 int		search_usrpath(char **token, char **env, char **err)
 {
 	ft_printf("Search in usr path\n");
+	int		res;
+
+	res = file_exist(*token);
+	if (res == 1)
+	{
+		ft_printf("found\n");
+		// exec
+		// free
+		return (0);
+	}
+	else if (res == -1)
+		return (1);
+	if ((*err = construct_error(*token, "No such file or directory")) == NULL)
+		return (1);
+	ft_printf("Not found\n");
 	return (0);
 }
 
@@ -99,11 +127,13 @@ int		dispatch_commands(char **tokens, char **env, char **err)
 		ft_printf("%s\n", tokens[i]);
 		i++;
 	}
-	res = search_builtins(tokens, env, err);
-	if (res != 0)
-		return (res);
 	if (ft_strchr(*tokens, '/') == NULL)
+	{
+		res = search_builtins(tokens, env, err);
+		if (res != 0)
+			return (res);
 		return (search_envpath(tokens, env, err));
+	}
 	else
 		return (search_usrpath(tokens, env, err));
 }
