@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   dispatcher.c                                     .::    .:/ .      .::   */
+/*   searcher.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/09/21 15:11:43 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 18:16:41 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
+/*   Updated: 2018/09/25 18:19:52 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		search_builtins(char **token, char **env, char **err)
-{
-	ft_printf("Search in builtins\n");
-	if (ft_strcmp(*token, "echo") == 0 ||
-	ft_strcmp(*token, "cd") == 0 ||
-	ft_strcmp(*token, "setenv") == 0 ||
-	ft_strcmp(*token, "unsetenv") == 0 ||
-	ft_strcmp(*token, "env") == 0 ||
-	ft_strcmp(*token, "exit") == 0)
-	{
-		ft_printf("found\n");
-		if (exec_builtins(token, env, err) == 0)
-			return (1);
-		else
-			return (-1);
-	}
-	ft_printf("Not found\n");
-	return (0);
-}
-
-int		search_file_in_dir(const char *filename, const char *dirpath,
+static int		search_file_in_dir(const char *filename, const char *dirpath,
 char **err)
 {
 	DIR				*dirp;
@@ -56,14 +36,34 @@ char **err)
 	return (0);
 }
 
-int		file_exist(char *filename)
+int			file_exist(char *filename)
 {
 	struct stat	buffer;
 
 	return (stat(filename, &buffer) == 0);
 }
 
-int		search_envpath(char **token, char **env, char **err)
+int			search_builtins(char **token, char **env, char **err)
+{
+	ft_printf("Search in builtins\n");
+	if (ft_strcmp(*token, "echo") == 0 ||
+	ft_strcmp(*token, "cd") == 0 ||
+	ft_strcmp(*token, "setenv") == 0 ||
+	ft_strcmp(*token, "unsetenv") == 0 ||
+	ft_strcmp(*token, "env") == 0 ||
+	ft_strcmp(*token, "exit") == 0)
+	{
+		ft_printf("found\n");
+		if (exec_builtins(token, env, err) == 0)
+			return (1);
+		else
+			return (-1);
+	}
+	ft_printf("Not found\n");
+	return (0);
+}
+
+int			search_envpath(char **token, char **env, char **err)
 {
 	char	**envpath;
 	size_t	i;
@@ -113,27 +113,4 @@ int		search_usrpath(char **token, char **env, char **err)
 		return (1);
 	ft_printf("Not found\n");
 	return (0);
-}
-
-int		dispatch_commands(char **tokens, char **env, char **err)
-{
-	int		res;
-	size_t	i;
-
-	i = 0;
-	ft_printf("tokens : \n");
-	while (tokens[i] != NULL)
-	{
-		ft_printf("%s\n", tokens[i]);
-		i++;
-	}
-	if (ft_strchr(*tokens, '/') == NULL)
-	{
-		res = search_builtins(tokens, env, err);
-		if (res != 0)
-			return (res);
-		return (search_envpath(tokens, env, err));
-	}
-	else
-		return (search_usrpath(tokens, env, err));
 }
