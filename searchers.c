@@ -1,17 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   searcher.c                                       .::    .:/ .      .::   */
+/*   searchers.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 18:19:52 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 22:40:57 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int				add_path(char **tokens, char **env, char *path)
+{
+	char	*tmp;
+	size_t	lent;
+	size_t	lenp;
+	size_t	has_slash;
+
+	lent = ft_strlen(*tokens);
+	lenp = ft_strlen(path);
+	has_slash = path[lenp - 1] == '/';
+	if ((tmp = malloc(lent + lenp + 1 + !has_slash)) == NULL)
+		return (1);
+	ft_strcpy(tmp, path);
+	if (!has_slash)
+		ft_strcpy(&(tmp[lenp]), "/");
+	ft_strcpy(&(tmp[lenp + !has_slash]), *tokens);
+	ft_strdel(tokens);
+	*tokens = tmp;
+	return (0);
+}
 
 static int		search_file_in_dir(const char *filename, const char *dirpath,
 char **err)
@@ -36,13 +57,6 @@ char **err)
 	return (0);
 }
 
-int			file_exist(char *filename)
-{
-	struct stat	buffer;
-
-	return (stat(filename, &buffer) == 0);
-}
-
 int			search_builtins(char **token, char **env, char **err)
 {
 	ft_printf("Search in builtins\n");
@@ -63,7 +77,7 @@ int			search_builtins(char **token, char **env, char **err)
 	return (0);
 }
 
-int			search_envpath(char **token, char **env, char **err)
+int			search_envpath(char **tokens, char **env, char **err)
 {
 	char	**envpath;
 	size_t	i;
@@ -75,20 +89,23 @@ int			search_envpath(char **token, char **env, char **err)
 		return (1);
 	while (envpath[i] != NULL)
 	{
-		res = search_file_in_dir(*token, envpath[i], err);
+		res = search_file_in_dir(*tokens, envpath[i], err);
 		if (res == 1)
 		{
 			ft_printf("found\n");
 			// exec
-			// free
+			add_path(tokens, env, envpath[i]);
+			ft_printf("%s\n", *tokens);
+			exec_file(tokens, env, err);
+			free_array_str(envpath);
 			return (0);
 		}
 		else if (res == -1)
 			return (1);
 		i++;
 	}
-	// free envpath
-	if ((*err = construct_error(*token, "command not found")) == NULL)
+	free_array_str(envpath);
+	if ((*err = construct_error(*tokens, "command not found")) == NULL)
 		return (1);
 	ft_printf("not found\n");
 	return (0);
@@ -103,8 +120,7 @@ int		search_usrpath(char **token, char **env, char **err)
 	if (res == 1)
 	{
 		ft_printf("found\n");
-		// exec
-		// free
+		exec_file(token, env, err);
 		return (0);
 	}
 	else if (res == -1)

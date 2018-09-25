@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 18:07:47 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 19:56:38 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	handle_error(char **err)
 	if (*err != NULL)
 	{
 		ft_printf("-minishell: %s\n", *err);
-		free(*err);
+		ft_strdel(err);
 	}
 }
 

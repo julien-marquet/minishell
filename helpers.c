@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 18:15:44 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 19:54:42 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,18 +18,6 @@ int		is_metachar(char c)
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);
 	return (0);
-}
-
-char	**get_envpath_array(char **env)
-{
-	char	**envpath;
-	char	*path;
-
-	if ((path = ft_getenv("PATH", env)) == NULL)
-		return (NULL);
-	envpath = ft_strsplit(path, ':');
-	free(path);
-	return (envpath);
 }
 
 char	*construct_error(const char *target, const char *error)
@@ -46,4 +34,11 @@ char	*construct_error(const char *target, const char *error)
 	ft_strcpy(&(res[lent]), ": ");
 	ft_strcpy(&(res[lent + 2]), error);
 	return (res);
+}
+
+int			file_exist(char *filename)
+{
+	struct stat	buffer;
+
+	return (stat(filename, &buffer) == 0);
 }

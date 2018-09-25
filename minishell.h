@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 18:20:01 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 19:54:00 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,12 +38,18 @@ int		parse_input(const char *str_i, char **tokens, char **env);
 char	**allocate_tokens(size_t ntoken);
 
 /*
+**	Destructors
+*/
+
+void	free_array_str(char **arr);
+
+/*
 **	Helper
 */
 
 int		is_metachar(char c);
-char	**get_envpath_array(char **env);
 char	*construct_error(const char *target, const char *error);
+int		file_exist(char *filename);
 
 /*
 **	Expansions
@@ -63,6 +69,7 @@ int		dispatch_commands(char **tokens, char **env, char **err);
 **	Env
 */
 
+char	**get_envpath_array(char **env);
 char	**duplicate_env(char **env);
 
 /*
@@ -70,7 +77,7 @@ char	**duplicate_env(char **env);
 */
 
 int		exec_builtins(char **token, char **env, char **err);
-
+int		exec_file(char **token, char **env, char **err);
 
 /*
 **	Searcher

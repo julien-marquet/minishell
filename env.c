@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 16:07:57 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:42:59 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 19:54:10 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,4 +40,16 @@ char	**duplicate_env(char **env)
 	}
 	env = tmp;
 	return (env);
+}
+
+char	**get_envpath_array(char **env)
+{
+	char	**envpath;
+	char	*path;
+
+	if ((path = ft_getenv("PATH", env)) == NULL)
+		return (NULL);
+	envpath = ft_strsplit(path, ':');
+	free(path);
+	return (envpath);
 }
