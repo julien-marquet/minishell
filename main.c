@@ -6,48 +6,21 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 15:53:33 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 17:43:00 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**duplicate_env(char **env)
-{
-	size_t	len;
-	char	**tmp;
-
-	while (env[len] != NULL)
-		len++;
-	if ((tmp = (char**)malloc((len  + 1) * sizeof(char*))) == NULL)
-		return (NULL);
-	tmp[len] = NULL;
-	len = 0;
-	while (env[len] != NULL)
-	{
-		if ((tmp[len] = ft_strdup(env[len])) == NULL)
-		{
-			while (len > 0)
-			{
-				len--;
-				ft_strdel(&(tmp[len]));
-			}
-			free(tmp);
-			return (NULL);
-		}
-		len++;
-	}
-	env = tmp;
-	return (env);
-}
-
 int		main(int ac, char **av, char **env)
 {
 	char	buf[BUF_SIZE + 1];
 	ssize_t ret;
 	char	**tokens;
+	char	*err;
 
+	err = NULL;
 	if ((env = duplicate_env(env)) == NULL)
 		return (1);
 	while (1)
@@ -60,7 +33,7 @@ int		main(int ac, char **av, char **env)
 			return (1);
 		if (parse_input(buf, tokens, env) != 0)
 			return (1);
-		if (dispatch_commands(tokens, env) != 0)
+		if (dispatch_commands(tokens, env, &err) != 0)
 			return (1);
 	}
 	return (0);

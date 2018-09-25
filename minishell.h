@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 16:50:19 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 17:41:01 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <dirent.h>
 # define BUF_SIZE 1024
 
 /*
@@ -39,6 +40,7 @@ char	**allocate_tokens(size_t ntoken);
 */
 
 int		is_metachar(char c);
+char	**get_envpath_array(char **env);
 
 /*
 **	Expansions
@@ -52,7 +54,7 @@ int		dol_handle_full(char **token, size_t *i, char **env, size_t j);
 **	Dispatcher
 */
 
-int		dispatch_commands(char **tokens, char **env);
+int		dispatch_commands(char **tokens, char **env, char **err);
 
 /*
 **	Env
@@ -64,6 +66,6 @@ char	**duplicate_env(char **env);
 **	Exec
 */
 
-int		exec_builtins(char **token, char **env);
+int		exec_builtins(char **token, char **env, char **err);
 
 #endif
