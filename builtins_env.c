@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 16:22:43 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 16:29:05 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 16:51:41 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		builtins_env(char **tokens, char **env, char *err)
+int		builtins_env(char **tokens, char **env)
 {
 	size_t	i;
 

@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 15:15:00 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 17:02:44 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,11 +28,13 @@ char	*construct_error(const char *target, const char *error)
 
 	lent = ft_strlen(target);
 	lene = ft_strlen(error);
-	if ((res = malloc(lent + lene + 3)) == NULL)
+	if ((res = malloc(lent + lene + 4)) == NULL)
 		return (NULL);
 	ft_strcpy(res, target);
 	ft_strcpy(&(res[lent]), ": ");
 	ft_strcpy(&(res[lent + 2]), error);
+	res[lent + lene + 2] = '.';
+	res[lent + lene + 3] = '\0';
 	return (res);
 }
 

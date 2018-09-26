@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 15:21:10 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 18:03:29 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ char **err)
 	return (0);
 }
 
-int				search_builtins(char **token, char **env, char **err)
+int				search_builtins(char **token, char ***env, char **err)
 {
 	if (ft_strcmp(*token, "echo") == 0 ||
 	ft_strcmp(*token, "cd") == 0 ||

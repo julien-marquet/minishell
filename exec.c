@@ -6,21 +6,25 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 16:30:26 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 22:10:27 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		exec_builtins(char **token, char **env, char **err)
+int		exec_builtins(char **token, char ***env, char **err)
 {
 	if (ft_strcmp(*token, "echo") == 0)
-		return (builtins_echo(token, env, err));
+		builtins_echo(token, *env);
 	else if (ft_strcmp(*token, "env") == 0)
-		return (builtins_env(token, env, err));
+		builtins_env(token, *env);
 	else if (ft_strcmp(*token, "setenv") == 0)
-		return (builtins_setenv(token, env, err));
+		builtins_setenv(token, env);
+	else if (ft_strcmp(*token, "unsetenv") == 0)
+		builtins_unsetenv(token, *env);
+	else if (ft_strcmp(*token, "cd") == 0)
+		builtins_cd(token, *env);
 	return (0);
 }
 

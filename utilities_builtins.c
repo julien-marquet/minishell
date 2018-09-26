@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   dispatchers.c                                    .::    .:/ .      .::   */
+/*   utilities_builtins.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/09/21 15:11:43 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 18:03:23 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/09/26 20:13:57 by jmarquet     #+#   ##    ##    #+#       */
+/*   Updated: 2018/09/26 20:19:17 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		dispatch_commands(char **tokens, char ***env, char **err)
+int		setenv_is_valid(char *str)
 {
-	int		res;
 	size_t	i;
 
 	i = 0;
-	if (*tokens != NULL)
+	while (str[i] != '\0')
 	{
-		if (ft_strchr(*tokens, '/') == NULL)
-		{
-			res = search_builtins(tokens, env, err);
-			if (res != 0)
-				return (res == 1 ? 0 : res);
-			return (search_envpath(tokens, *env, err));
-		}
-		else
-			return (search_usrpath(tokens, *env, err));
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
+}
+
+int		setenv_handle_err(const char *target, const char *error)
+{
+	char	*err;
+
+	if (!(err = construct_error(target, error)))
+		return (1);
+	ft_putendl_fd(err, 2);
+	ft_strdel(&err);
+	return (1);
 }
