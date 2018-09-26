@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 19:56:38 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 16:09:18 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,8 @@ void	handle_error(char **err)
 {
 	if (*err != NULL)
 	{
-		ft_printf("-minishell: %s\n", *err);
+		ft_putstr_fd("-minishell: ", 2);
+		ft_putendl_fd(*err, 2);
 		ft_strdel(err);
 	}
 }
@@ -34,6 +35,7 @@ int		main(int ac, char **av, char **env)
 		return (1);
 	while (1)
 	{
+		ft_putstr("$> ");
 		ret = read(0, buf, BUF_SIZE);
 		if (ret == -1)
 			return (1);

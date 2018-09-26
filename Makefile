@@ -6,7 +6,7 @@
 #    By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/07 17:49:46 by jmarquet     #+#   ##    ##    #+#        #
-#    Updated: 2018/09/25 18:20:27 by jmarquet    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/26 16:22:38 by jmarquet    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -15,7 +15,7 @@ NAME = minishell
 PATH_HEAD = ./
 LIB_NAME = ft
 PATH = ./
-SRCS = $(addprefix $(PATH), main.c allocators.c helpers.c destructors.c expansions.c expansions_utilities.c parsers.c dispatchers.c exec.c env.c searchers.c)
+SRCS = $(addprefix $(PATH), main.c allocators.c helpers.c destructors.c expansions.c expansions_utilities.c parsers.c dispatchers.c exec.c env.c searchers.c builtins_echo.c builtins_env.c)
 HEADER_FILE = $(addprefix $(PATH_HEAD), minishell.h)
 OBJ = $(SRCS:.c=.o)
 

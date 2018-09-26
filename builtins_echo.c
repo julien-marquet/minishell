@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   dispatchers.c                                    .::    .:/ .      .::   */
+/*   builtins_echo.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/09/21 15:11:43 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 16:16:55 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/09/26 15:55:24 by jmarquet     #+#   ##    ##    #+#       */
+/*   Updated: 2018/09/26 16:08:46 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		dispatch_commands(char **tokens, char **env, char **err)
+int		builtins_echo(char **tokens, char **env, char *err)
 {
-	int		res;
 	size_t	i;
 
-	i = 0;
-	if (*tokens != NULL)
+	i = 1;
+	while (tokens[i] != NULL)
 	{
-		if (ft_strchr(*tokens, '/') == NULL)
-		{
-			res = search_builtins(tokens, env, err);
-			if (res != 0)
-				return (res == 1 ? 0 : res);
-			return (search_envpath(tokens, env, err));
-		}
-		else
-			return (search_usrpath(tokens, env, err));
+		ft_putstr(tokens[i]);
+		i++;
 	}
+	ft_putchar('\n');
 	return (0);
 }

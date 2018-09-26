@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 19:54:00 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 16:28:38 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,4 +86,12 @@ int		exec_file(char **token, char **env, char **err);
 int		search_usrpath(char **token, char **env, char **err);
 int		search_envpath(char **token, char **env, char **err);
 int		search_builtins(char **token, char **env, char **err);
+
+/*
+**	Builtins
+*/
+
+int		builtins_echo(char **tokens, char **env, char *err);
+int		builtins_env(char **tokens, char **env, char *err);
+
 #endif

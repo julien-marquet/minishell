@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 19:54:42 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/26 15:15:00 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,9 +36,11 @@ char	*construct_error(const char *target, const char *error)
 	return (res);
 }
 
-int			file_exist(char *filename)
+int		file_exist(char *filename)
 {
 	struct stat	buffer;
 
-	return (stat(filename, &buffer) == 0);
+	if (stat(filename, &buffer) != 0)
+		return (0);
+	return (S_ISREG(buffer.st_mode) != 0);
 }
