@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:32:46 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 18:52:51 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 23:50:58 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ static int	remove_line(char *token, char **env)
 	return (0);
 }
 
-int			builtins_unsetenv(char **tokens, char **env)
+int			builtins_unsetenv(char **tokens, char **env, char **err)
 {
 	size_t	i;
 	int		status;
@@ -57,7 +57,10 @@ int			builtins_unsetenv(char **tokens, char **env)
 	status = 0;
 	i = 1;
 	if (tokens[1] == NULL)
-		return (setenv_handle_err("unsetenv", "Too few arguments"));
+	{
+		*err = ft_construct_str(2, "unsetenv: ", "Too few arguments.");
+		return (1);
+	}
 	else
 	{
 		while (tokens[i] != NULL)

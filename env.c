@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 16:07:57 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 19:54:10 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 21:32:48 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ char	**duplicate_env(char **env)
 	size_t	len;
 	char	**tmp;
 
+	len = 0;
 	while (env[len] != NULL)
 		len++;
 	if ((tmp = (char**)malloc((len + 1) * sizeof(char*))) == NULL)
@@ -29,10 +30,7 @@ char	**duplicate_env(char **env)
 		if ((tmp[len] = ft_strdup(env[len])) == NULL)
 		{
 			while (len > 0)
-			{
-				len--;
-				ft_strdel(&(tmp[len]));
-			}
+				ft_strdel(&(tmp[len--]));
 			free(tmp);
 			return (NULL);
 		}

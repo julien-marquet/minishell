@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 17:38:03 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 23:36:01 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,6 @@ void	free_array_str(char **arr);
 */
 
 int		is_metachar(char c);
-char	*construct_error(const char *target, const char *error);
 int		file_exist(char *filename);
 
 /*
@@ -94,9 +93,9 @@ int		search_builtins(char **token, char ***env, char **err);
 
 int		builtins_echo(char **tokens, char **env);
 int		builtins_env(char **tokens, char **env);
-int		builtins_setenv(char **tokens, char ***env);
-int		builtins_unsetenv(char **tokens, char **env);
-int		builtins_cd(char **tokens, char ***env);
+int		builtins_setenv(char **tokens, char ***env, char **err);
+int		builtins_unsetenv(char **tokens, char **env, char **err);
+int		builtins_cd(char **tokens, char ***env, char **err);
 
 /*
 **	Builtins utilities
@@ -104,5 +103,11 @@ int		builtins_cd(char **tokens, char ***env);
 
 int		sh_setenv(char *var, char *val, char ***env);
 int		setenv_is_valid(char *str);
-int		setenv_handle_err(const char *target, const char *error);
+
+/*
+**	Error handling
+*/
+
+
+
 #endif

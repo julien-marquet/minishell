@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 16:40:00 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 23:40:12 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,11 +20,11 @@ int		exec_builtins(char **token, char ***env, char **err)
 	else if (ft_strcmp(*token, "env") == 0)
 		builtins_env(token, *env);
 	else if (ft_strcmp(*token, "setenv") == 0)
-		builtins_setenv(token, env);
+		builtins_setenv(token, env, err);
 	else if (ft_strcmp(*token, "unsetenv") == 0)
-		builtins_unsetenv(token, *env);
+		builtins_unsetenv(token, *env, err);
 	else if (ft_strcmp(*token, "cd") == 0)
-		builtins_cd(token, env);
+		builtins_cd(token, env, err);
 	return (0);
 }
 
@@ -34,21 +34,14 @@ int		exec_file(char **token, char **env, char **err)
 	int		stat_loc;
 
 	if (access(*token, X_OK) != 0)
-	{
-		if ((*err = construct_error(*token, "Permission denied")) == NULL)
-			return (1);
-	}
+		*err = ft_construct_str(3, *token, ": ", "Permission denied");
 	else
 	{
 		pid = fork();
 		if (pid == 0)
-		{
 			execve(*token, token, env);
-		}
 		else
-		{
 			waitpid(pid, &stat_loc, WUNTRACED);
-		}
 	}
 	return (0);
 }

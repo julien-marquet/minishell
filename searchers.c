@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 18:03:29 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 23:32:24 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,8 +98,7 @@ int				search_envpath(char **tokens, char **env, char **err)
 		i++;
 	}
 	free_array_str(envpath);
-	if ((*err = construct_error(*tokens, "command not found")) == NULL)
-		return (1);
+	*err = ft_construct_str(3, *tokens, ": ", "command not found.");
 	return (0);
 }
 
@@ -115,7 +114,6 @@ int				search_usrpath(char **token, char **env, char **err)
 	}
 	else if (res == -1)
 		return (1);
-	if ((*err = construct_error(*token, "No such file or directory")) == NULL)
-		return (1);
+	*err = ft_construct_str(3, *token, ": ", "No such file or directory.");
 	return (0);
 }

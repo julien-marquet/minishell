@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:13:57 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 16:34:53 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 23:34:39 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,17 +24,6 @@ int		setenv_is_valid(char *str)
 			return (0);
 		i++;
 	}
-	return (1);
-}
-
-int		setenv_handle_err(const char *target, const char *error)
-{
-	char	*err;
-
-	if (!(err = construct_error(target, error)))
-		return (1);
-	ft_putendl_fd(err, 2);
-	ft_strdel(&err);
 	return (1);
 }
 
