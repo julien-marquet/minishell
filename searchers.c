@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:32:24 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:11:09 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,8 @@ char **err)
 	return (0);
 }
 
-int				search_builtins(char **token, char ***env, char **err)
+int				search_builtins(char **token, char ***env, char **err,
+int *status)
 {
 	if (ft_strcmp(*token, "echo") == 0 ||
 	ft_strcmp(*token, "cd") == 0 ||
@@ -66,7 +67,7 @@ int				search_builtins(char **token, char ***env, char **err)
 	ft_strcmp(*token, "env") == 0 ||
 	ft_strcmp(*token, "exit") == 0)
 	{
-		if (exec_builtins(token, env, err) == 0)
+		if (exec_builtins(token, env, err, status) == 0)
 			return (1);
 		else
 			return (-1);
@@ -74,7 +75,8 @@ int				search_builtins(char **token, char ***env, char **err)
 	return (0);
 }
 
-int				search_envpath(char **tokens, char **env, char **err)
+int				search_envpath(char **tokens, char **env, char **err,
+int *status)
 {
 	char	**envpath;
 	size_t	i;
@@ -89,7 +91,7 @@ int				search_envpath(char **tokens, char **env, char **err)
 		if (res == 1)
 		{
 			add_path(tokens, env, envpath[i]);
-			exec_file(tokens, env, err);
+			exec_file(tokens, env, err, status);
 			free_array_str(envpath);
 			return (0);
 		}
@@ -102,14 +104,15 @@ int				search_envpath(char **tokens, char **env, char **err)
 	return (0);
 }
 
-int				search_usrpath(char **token, char **env, char **err)
+int				search_usrpath(char **token, char **env, char **err,
+int *status)
 {
 	int		res;
 
 	res = file_exist(*token);
 	if (res == 1)
 	{
-		exec_file(token, env, err);
+		exec_file(token, env, err, status);
 		return (0);
 	}
 	else if (res == -1)

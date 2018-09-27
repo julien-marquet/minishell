@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:28:40 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:14:43 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,10 @@ int		main(int ac, char **av, char **env)
 	ssize_t ret;
 	char	**tokens;
 	char	*err;
+	int		status;
+	int		sig_exit;
 
+	status = 0;
 	err = NULL;
 	if ((env = duplicate_env(env)) == NULL)
 		return (1);
@@ -44,11 +47,14 @@ int		main(int ac, char **av, char **env)
 			return (1);
 		if (parse_input(buf, tokens, env) != 0)
 			return (1);
-		if (dispatch_commands(tokens, &env, &err) != 0)
+		sig_exit = dispatch_commands(tokens, &env, &err, &status);
+		if (sig_exit == -1)
+			return (status);
+		else if (sig_exit != 0)
 			return (1);
 		handle_error(&err);
 	}
-	return (0);
+	return (status);
 }
 /*
 	Bash provides several ways to manipulate the environment.

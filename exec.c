@@ -6,29 +6,31 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:40:12 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:11:31 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		exec_builtins(char **token, char ***env, char **err)
+int		exec_builtins(char **token, char ***env, char **err, int *status)
 {
 	if (ft_strcmp(*token, "echo") == 0)
-		builtins_echo(token, *env);
+		*status = builtins_echo(token, *env);
 	else if (ft_strcmp(*token, "env") == 0)
-		builtins_env(token, *env);
+		*status = builtins_env(token, *env);
 	else if (ft_strcmp(*token, "setenv") == 0)
-		builtins_setenv(token, env, err);
+		*status = builtins_setenv(token, env, err);
 	else if (ft_strcmp(*token, "unsetenv") == 0)
-		builtins_unsetenv(token, *env, err);
+		*status = builtins_unsetenv(token, *env, err);
 	else if (ft_strcmp(*token, "cd") == 0)
-		builtins_cd(token, env, err);
+		*status = builtins_cd(token, env, err);
+	else if (ft_strcmp(*token, "exit") == 0)
+		return (-1);
 	return (0);
 }
 
-int		exec_file(char **token, char **env, char **err)
+int		exec_file(char **token, char **env, char **err, int *status)
 {
 	pid_t	pid;
 	int		stat_loc;
@@ -41,7 +43,10 @@ int		exec_file(char **token, char **env, char **err)
 		if (pid == 0)
 			execve(*token, token, env);
 		else
+		{
 			waitpid(pid, &stat_loc, WUNTRACED);
+			*status = WEXITSTATUS(stat_loc);
+		}
 	}
 	return (0);
 }

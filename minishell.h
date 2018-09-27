@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:36:01 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:05:48 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ int		dol_handle_full(char **token, size_t *i, char **env, size_t j);
 **	Dispatcher
 */
 
-int		dispatch_commands(char **tokens, char ***env, char **err);
+int		dispatch_commands(char **tokens, char ***env, char **err, int *status);
 
 /*
 **	Env
@@ -76,16 +76,16 @@ char	**duplicate_env(char **env);
 **	Exec
 */
 
-int		exec_builtins(char **token, char ***env, char **err);
-int		exec_file(char **token, char **env, char **err);
+int		exec_builtins(char **token, char ***env, char **err, int *status);
+int		exec_file(char **token, char **env, char **err, int *status);
 
 /*
 **	Searcher
 */
 
-int		search_usrpath(char **token, char **env, char **err);
-int		search_envpath(char **token, char **env, char **err);
-int		search_builtins(char **token, char ***env, char **err);
+int		search_usrpath(char **token, char **env, char **err, int *status);
+int		search_envpath(char **token, char **env, char **err, int *status);
+int		search_builtins(char **token, char ***env, char **err, int *status);
 
 /*
 **	Builtins
