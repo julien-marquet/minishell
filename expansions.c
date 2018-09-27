@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 15:58:37 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 21:58:41 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 17:53:54 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,8 @@ static int		expand_tild(char **token, size_t *i, char **env, char *start)
 		if ((tmp = malloc(ft_strlen(*token) + len)) == NULL)
 			return (1);
 		ft_strncpy(tmp, *token, *i);
-		ft_strcpy(&(tmp[*i]), var_env);
+		if (var_env != NULL)
+			ft_strcpy(&(tmp[*i]), var_env);
 		ft_strcpy(&(tmp[*i + len]), &((*token)[*i + 1]));
 		ft_strdel(token);
 		*token = tmp;

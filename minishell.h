@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 22:11:36 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 17:38:03 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define BUF_SIZE 1024
+# include <errno.h>
 # include "Libft/libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -95,12 +96,13 @@ int		builtins_echo(char **tokens, char **env);
 int		builtins_env(char **tokens, char **env);
 int		builtins_setenv(char **tokens, char ***env);
 int		builtins_unsetenv(char **tokens, char **env);
-int		builtins_cd(char **tokens, char **env);
+int		builtins_cd(char **tokens, char ***env);
 
 /*
 **	Builtins utilities
 */
 
+int		sh_setenv(char *var, char *val, char ***env);
 int		setenv_is_valid(char *str);
 int		setenv_handle_err(const char *target, const char *error);
 #endif

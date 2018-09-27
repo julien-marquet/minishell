@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 22:10:27 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 16:40:00 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ int		exec_builtins(char **token, char ***env, char **err)
 	else if (ft_strcmp(*token, "unsetenv") == 0)
 		builtins_unsetenv(token, *env);
 	else if (ft_strcmp(*token, "cd") == 0)
-		builtins_cd(token, *env);
+		builtins_cd(token, env);
 	return (0);
 }
 
