@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 01:14:43 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:26:21 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,17 +56,3 @@ int		main(int ac, char **av, char **env)
 	}
 	return (status);
 }
-/*
-	Bash provides several ways to manipulate the environment.
-
-	On invocation, the shell scans its own environment and creates a parameter for each name found, automatically marking it for export to child processes.
-
-	Executed commands inherit the environment.
-
-	The export and ‘declare -x’ commands allow parameters and functions to be added to and deleted from the environment.
-
-	If the value of a parameter in the environment is modified, the new value becomes part of the environment, replacing the old.
-
-	The environment inherited by any executed command consists of the shell’s initial environment, whose values may be modified in the shell,
-	less any pairs removed by the unset and ‘export -n’ commands, plus any additions via the export and ‘declare -x’ commands.
-*/

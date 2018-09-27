@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   parser.c                                         .::    .:/ .      .::   */
+/*   parsers.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/20 21:48:19 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 22:03:10 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 01:40:31 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,29 @@ size_t		count_tokens(const char *str_i)
 	return (ntoken);
 }
 
+void		shift_empty(char **tokens)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (tokens[i] != NULL)
+	{
+		if (ft_strlen(tokens[i]) == 0)
+		{
+			j = 0;
+			ft_strdel(&(tokens[i]));
+			while (tokens[i + j + 1] != NULL)
+			{
+				tokens[i + j] = tokens[i + j + 1];
+				j++;
+			}
+			tokens[i + j] = NULL;
+		}
+		i++;
+	}
+}
+
 int			parse_input(const char *str_i, char **tokens, char **env)
 {
 	unsigned char	in_word;
@@ -98,5 +121,6 @@ int			parse_input(const char *str_i, char **tokens, char **env)
 			start = i;
 		i++;
 	}
+	shift_empty(tokens);
 	return (0);
 }
