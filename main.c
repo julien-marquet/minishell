@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:25:16 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:29:07 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,7 @@ int				main(int ac, char **av, char **env)
 	int		status;
 	int		sig_exit;
 
+	tokens = NULL;
 	ac = av[0][0];
 	status = 0;
 	if ((env = duplicate_env(env)) == NULL)

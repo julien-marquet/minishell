@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:13:57 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:10:05 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:30:04 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,6 @@ int			sh_setenv(char *var, char *val, char ***env)
 {
 	size_t	i;
 	size_t	j;
-	char	*err;
 
 	i = 0;
 	while ((*env)[i] != NULL)
@@ -91,7 +90,7 @@ int			sh_setenv(char *var, char *val, char ***env)
 		j = 0;
 		while ((*env)[i][j] != '\0')
 		{
-			if ((*env)[i][j] == '=')
+			if ((*env)[i][j] == '=' && var[j] == '\0')
 				return (edit_line(var, val, &((*env)[i])));
 			else if (var[j] != (*env)[i][j])
 				break ;

@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:04:40 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:31:14 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,9 +16,9 @@
 int		exec_builtins(char **token, char ***env, char **err, int *status)
 {
 	if (ft_strcmp(*token, "echo") == 0)
-		*status = builtins_echo(token, *env);
+		*status = builtins_echo(token);
 	else if (ft_strcmp(*token, "env") == 0)
-		*status = builtins_env(token, *env);
+		*status = builtins_env(*env);
 	else if (ft_strcmp(*token, "setenv") == 0)
 		*status = builtins_setenv(token, env, err);
 	else if (ft_strcmp(*token, "unsetenv") == 0)

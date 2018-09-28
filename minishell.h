@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:16:20 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:31:07 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,8 +91,8 @@ int		search_builtins(char **token, char ***env, char **err, int *status);
 **	Builtins
 */
 
-int		builtins_echo(char **tokens, char **env);
-int		builtins_env(char **tokens, char **env);
+int		builtins_echo(char **tokens);
+int		builtins_env(char **env);
 int		builtins_setenv(char **tokens, char ***env, char **err);
 int		builtins_unsetenv(char **tokens, char **env, char **err);
 int		builtins_cd(char **tokens, char ***env, char **err);

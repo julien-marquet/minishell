@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:11:52 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:29:32 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,8 +34,7 @@ static int		add_path(char **tokens, char *path)
 	return (0);
 }
 
-static int		search_file_in_dir(const char *filename, const char *dirpath,
-char **err)
+static int		search_file_in_dir(const char *filename, const char *dirpath)
 {
 	DIR				*dirp;
 	size_t			len;
@@ -87,7 +86,7 @@ int *status)
 	{
 		while (envpath[i] != NULL)
 		{
-			res = search_file_in_dir(*tokens, envpath[i], err);
+			res = search_file_in_dir(*tokens, envpath[i]);
 			if (res == 1)
 			{
 				add_path(tokens, envpath[i]);

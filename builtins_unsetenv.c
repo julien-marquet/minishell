@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:32:46 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 04:57:16 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:31:58 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,6 @@ static int	remove_line(char *token, char **env)
 {
 	size_t	i;
 	size_t	j;
-	char	*err;
 
 	i = 0;
 	while (env[i] != NULL)

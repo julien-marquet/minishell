@@ -6,7 +6,7 @@
 #    By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/07 17:49:46 by jmarquet     #+#   ##    ##    #+#        #
-#    Updated: 2018/09/28 04:01:26 by jmarquet    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/28 05:28:34 by jmarquet    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -27,7 +27,7 @@ LIBFT_OBJ = $(LIBFT_SRCS:.c=.o)
 CC := $(shell whereis gcc)
 AR := $(shell whereis ar)
 RM := $(shell whereis rm)
-FLAGS = -g
+FLAGS = -Werror -Wall -Wextra
 
 export CC
 export AR

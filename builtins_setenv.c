@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 16:30:42 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:50:48 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:31:31 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int			builtins_setenv(char **tokens, char ***env, char **err)
 	while (tokens[i] != NULL)
 		i++;
 	if (i == 1)
-		return (builtins_env(tokens, *env));
+		return (builtins_env(*env));
 	else if (i > 3)
 	{
 		*err = ft_construct_str(2, "setenv: ", "Too many arguments.");
