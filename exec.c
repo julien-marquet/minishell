@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 16:29:18 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 01:11:31 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:04:40 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,8 +34,12 @@ int		exec_file(char **token, char **env, char **err, int *status)
 {
 	pid_t	pid;
 	int		stat_loc;
+	int		valid;
 
-	if (access(*token, X_OK) != 0)
+	valid = file_exist(*token);
+	if (valid == -1)
+		*err = ft_construct_str(3, *token, ": ", "is a directory.");
+	else if (access(*token, X_OK) != 0)
 		*err = ft_construct_str(3, *token, ": ", "Permission denied");
 	else
 	{

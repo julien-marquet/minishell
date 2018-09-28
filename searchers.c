@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 01:11:09 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:01:49 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				add_path(char **tokens, char **env, char *path)
+static int				add_path(char **tokens, char *path)
 {
 	char	*tmp;
 	size_t	lent;
@@ -90,7 +90,7 @@ int *status)
 		res = search_file_in_dir(*tokens, envpath[i], err);
 		if (res == 1)
 		{
-			add_path(tokens, env, envpath[i]);
+			add_path(tokens, envpath[i]);
 			exec_file(tokens, env, err, status);
 			free_array_str(envpath);
 			return (0);
@@ -111,12 +111,10 @@ int *status)
 
 	res = file_exist(*token);
 	if (res == 1)
-	{
-		exec_file(token, env, err, status);
-		return (0);
-	}
+		return (exec_file(token, env, err, status));
 	else if (res == -1)
-		return (1);
-	*err = ft_construct_str(3, *token, ": ", "No such file or directory.");
+		*err = ft_construct_str(3, *token, ": ", "is a directory.");
+	else
+		*err = ft_construct_str(3, *token, ": ", "No such file or directory.");
 	return (0);
 }

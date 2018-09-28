@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 15:58:37 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 17:53:54 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:18:53 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,8 @@ static int		expand_dol(char **token, size_t *i, char **env, char *start)
 	size_t	j;
 
 	j = 0;
-	while (start[j] && start[j] != '\'' && start[j] != '$' && start[j] != '~')
+	while (start[j] && (ft_isalnum(start[j]) || start[j] == '_') &&
+start[j] != '\'' && start[j] != '$' && start[j] != '~')
 		j++;
 	if (j == 0)
 		return (dol_handle_empty(token, i));
