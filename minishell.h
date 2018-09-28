@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:31:07 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 17:07:24 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,8 @@ void	freedom(char **env);
 
 int		is_metachar(char c);
 int		file_exist(char *filename);
-void	shift_empty_array(char **tokens);
+int		shift_empty_array(char **tokens);
+void	remove_quotes(char **token);
 /*
 **	Expansions
 */

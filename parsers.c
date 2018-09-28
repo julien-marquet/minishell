@@ -6,33 +6,21 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/20 21:48:19 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:16:26 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 17:07:37 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
+static int		init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
 unsigned char *is_quoted)
 {
 	*start = 0;
 	*ntoken = 0;
 	*in_word = 0;
 	*is_quoted = 0;
-}
-
-static void		remove_quotes(char **token)
-{
-	size_t	i;
-
-	i = 0;
-	while ((*token)[i])
-	{
-		if ((*token)[i] == '\'')
-			ft_strcpy(&((*token)[i]), &((*token)[i + 1]));
-		i++;
-	}
+	return (0);
 }
 
 static char		*process_token(unsigned char *in_word,
@@ -74,6 +62,17 @@ size_t			count_tokens(const char *str_i)
 	return (ntoken);
 }
 
+void			handle_quote(unsigned char *in_word, size_t *i,
+size_t *start, size_t *ntoken)
+{
+	if (in_word == 0)
+	{
+		start = i;
+		in_word = 1;
+		++ntoken;
+	}
+}
+
 int				parse_input(const char *str_i, char **tokens, char **env)
 {
 	unsigned char	in_word;
@@ -82,8 +81,7 @@ int				parse_input(const char *str_i, char **tokens, char **env)
 	size_t			start;
 	size_t			i;
 
-	i = 0;
-	init_var(&start, &ntoken, &in_word, &is_quoted);
+	i = init_var(&start, &ntoken, &in_word, &is_quoted);
 	while (str_i[i])
 	{
 		if (is_metachar(str_i[i]) && !is_quoted)
@@ -93,11 +91,13 @@ int				parse_input(const char *str_i, char **tokens, char **env)
 				return (1);
 		}
 		else if (str_i[i] == '\'')
+		{
+			handle_quote(&in_word, &i, &start, &ntoken);
 			is_quoted = !is_quoted;
+		}
 		else if (in_word == 0 && ++ntoken && ++in_word)
 			start = i;
 		i++;
 	}
-	shift_empty_array(tokens);
-	return (0);
+	return (shift_empty_array(tokens));
 }

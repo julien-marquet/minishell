@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 18:11:33 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 05:25:09 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 17:07:08 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ int		file_exist(char *filename)
 	return (1);
 }
 
-void	shift_empty_array(char **tokens)
+int		shift_empty_array(char **tokens)
 {
 	size_t	i;
 	size_t	j;
@@ -51,5 +51,25 @@ void	shift_empty_array(char **tokens)
 			tokens[i + j] = NULL;
 		}
 		i++;
+	}
+	return (0);
+}
+
+void	remove_quotes(char **token)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*token)[i])
+	{
+		if ((*token)[i] == '\'')
+		{
+			if ((*token)[i + 1] == '\0')
+				(*token)[i] = '\0';
+			else
+				ft_strcpy(&((*token)[i]), &((*token)[i + 1]));
+		}
+		else
+			i++;
 	}
 }
