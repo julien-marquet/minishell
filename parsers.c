@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/20 21:48:19 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 17:07:37 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 17:23:32 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,11 +65,11 @@ size_t			count_tokens(const char *str_i)
 void			handle_quote(unsigned char *in_word, size_t *i,
 size_t *start, size_t *ntoken)
 {
-	if (in_word == 0)
+	if (*in_word == 0)
 	{
-		start = i;
-		in_word = 1;
-		++ntoken;
+		*start = *i;
+		*in_word = 1;
+		*ntoken += 1;
 	}
 }
 
