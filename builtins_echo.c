@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 15:55:24 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 16:51:46 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:32:11 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,8 @@ int		builtins_echo(char **tokens, char **env)
 	i = 1;
 	while (tokens[i] != NULL)
 	{
+		if (i != 1)
+			ft_putchar(' ');
 		ft_putstr(tokens[i]);
 		i++;
 	}

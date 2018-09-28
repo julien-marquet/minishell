@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:08:52 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:27:06 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,12 +48,6 @@ int		main(int ac, char **av, char **env)
 			return (1);
 		if (parse_input(buf, tokens, env) != 0)
 			return (1);
-		size_t	i = 0;
-		while (tokens[i] != NULL)
-		{
-			ft_printf("%s\n", tokens[i]);
-			i++;
-		}
 		sig_exit = dispatch_commands(tokens, &env, &err, &status);
 		if (sig_exit == -1)
 			return (status);

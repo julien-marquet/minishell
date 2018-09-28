@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:01:49 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 03:42:07 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,23 +83,24 @@ int *status)
 	int		res;
 
 	i = 0;
-	if ((envpath = get_envpath_array(env)) == NULL)
-		return (1);
-	while (envpath[i] != NULL)
+	if ((envpath = get_envpath_array(env)) != NULL)
 	{
-		res = search_file_in_dir(*tokens, envpath[i], err);
-		if (res == 1)
+		while (envpath[i] != NULL)
 		{
-			add_path(tokens, envpath[i]);
-			exec_file(tokens, env, err, status);
-			free_array_str(envpath);
-			return (0);
+			res = search_file_in_dir(*tokens, envpath[i], err);
+			if (res == 1)
+			{
+				add_path(tokens, envpath[i]);
+				exec_file(tokens, env, err, status);
+				free_array_str(envpath);
+				return (0);
+			}
+			else if (res == -1)
+				return (1);
+			i++;
 		}
-		else if (res == -1)
-			return (1);
-		i++;
+		free_array_str(envpath);
 	}
-	free_array_str(envpath);
 	*err = ft_construct_str(3, *tokens, ": ", "command not found.");
 	return (0);
 }
