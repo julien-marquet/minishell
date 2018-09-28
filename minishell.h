@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 01:05:48 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 04:00:57 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ char	**allocate_tokens(size_t ntoken);
 */
 
 void	free_array_str(char **arr);
+void	freedom(char **env);
 
 /*
 **	Helper

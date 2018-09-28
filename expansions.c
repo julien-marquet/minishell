@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 15:58:37 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:18:53 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:01:52 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,7 @@ static int		expand_tild(char **token, size_t *i, char **env, char *start)
 			ft_strcpy(&(tmp[*i]), var_env);
 		ft_strcpy(&(tmp[*i + len]), &((*token)[*i + 1]));
 		ft_strdel(token);
+		ft_strdel(&var_env);
 		*token = tmp;
 	}
 	else

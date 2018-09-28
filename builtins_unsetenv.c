@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:32:46 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:50:58 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 04:57:16 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,8 @@ static int	shift_env(char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
+		if (i == 0)
+			ft_strdel(&(env[i]));
 		env[i] = env[i + 1];
 		i++;
 	}
@@ -38,8 +40,10 @@ static int	remove_line(char *token, char **env)
 		j = 0;
 		while (env[i][j] != '\0')
 		{
-			if (env[i][j] == '=')
+			if (env[i][j] == '=' && token[j] == '\0')
+			{
 				return (shift_env(&(env[i])));
+			}
 			else if (token[j] != env[i][j])
 				break ;
 			j++;
