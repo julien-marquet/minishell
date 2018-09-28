@@ -6,7 +6,7 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 17:20:26 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 04:00:57 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:16:20 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <dirent.h>
-
 
 /*
 **	Parser
@@ -51,7 +50,7 @@ void	freedom(char **env);
 
 int		is_metachar(char c);
 int		file_exist(char *filename);
-
+void	shift_empty_array(char **tokens);
 /*
 **	Expansions
 */
@@ -104,11 +103,5 @@ int		builtins_cd(char **tokens, char ***env, char **err);
 
 int		sh_setenv(char *var, char *val, char ***env);
 int		setenv_is_valid(char *str);
-
-/*
-**	Error handling
-*/
-
-
 
 #endif

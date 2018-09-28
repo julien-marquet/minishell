@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 16:45:54 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 04:00:41 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:25:16 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_error(char **err)
+static void		handle_error(char **err)
 {
 	if (*err != NULL)
 	{
@@ -23,38 +23,46 @@ void	handle_error(char **err)
 	}
 }
 
-int		main(int ac, char **av, char **env)
+static int		handle_input(char **tokens, int *status, char ***env)
 {
 	char	buf[BUF_SIZE + 1];
 	ssize_t ret;
-	char	**tokens;
+	int		sig_exit;
 	char	*err;
+
+	err = NULL;
+	ft_putstr("$> ");
+	ret = read(0, buf, BUF_SIZE);
+	if (ret == -1)
+		return (1);
+	buf[ret] = '\0';
+	if ((tokens = allocate_tokens(count_tokens(buf))) == NULL)
+		return (1);
+	if (parse_input(buf, tokens, *env) != 0)
+		return (1);
+	sig_exit = dispatch_commands(tokens, env, &err, status);
+	free_array_str(tokens);
+	handle_error(&err);
+	return (sig_exit);
+}
+
+int				main(int ac, char **av, char **env)
+{
+	char	**tokens;
 	int		status;
 	int		sig_exit;
 
 	ac = av[0][0];
 	status = 0;
-	err = NULL;
 	if ((env = duplicate_env(env)) == NULL)
 		return (1);
 	while (1)
 	{
-		ft_putstr("$> ");
-		ret = read(0, buf, BUF_SIZE);
-		if (ret == -1)
-			return (1);
-		buf[ret] = '\0';
-		if ((tokens = allocate_tokens(count_tokens(buf))) == NULL)
-			return (1);
-		if (parse_input(buf, tokens, env) != 0)
-			return (1);
-		sig_exit = dispatch_commands(tokens, &env, &err, &status);
-		free_array_str(tokens);
-		if (sig_exit == -1)
+		sig_exit = handle_input(tokens, &status, &env);
+		if (sig_exit == 1)
+			status = 1;
+		if (sig_exit != 0)
 			break ;
-		else if (sig_exit != 0)
-			return (1);
-		handle_error(&err);
 	}
 	freedom(env);
 	return (status);

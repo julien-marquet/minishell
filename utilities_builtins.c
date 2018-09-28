@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/26 20:13:57 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 23:34:39 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:10:05 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		setenv_is_valid(char *str)
+int			setenv_is_valid(char *str)
 {
 	size_t	i;
 
@@ -79,7 +79,7 @@ static int	add_line(char *var, char *val, char ***env)
 	return (0);
 }
 
-int		sh_setenv(char *var, char *val, char ***env)
+int			sh_setenv(char *var, char *val, char ***env)
 {
 	size_t	i;
 	size_t	j;

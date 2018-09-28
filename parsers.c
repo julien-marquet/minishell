@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/20 21:48:19 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:10:00 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:16:26 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
+static void		init_var(size_t *start, size_t *ntoken, unsigned char *in_word,
 unsigned char *is_quoted)
 {
 	*start = 0;
@@ -22,7 +22,7 @@ unsigned char *is_quoted)
 	*is_quoted = 0;
 }
 
-static void	remove_quotes(char **token)
+static void		remove_quotes(char **token)
 {
 	size_t	i;
 
@@ -49,7 +49,7 @@ const char *start, size_t i, char **env)
 	return (token);
 }
 
-size_t		count_tokens(const char *str_i)
+size_t			count_tokens(const char *str_i)
 {
 	unsigned char	in_word;
 	size_t			ntoken;
@@ -74,30 +74,7 @@ size_t		count_tokens(const char *str_i)
 	return (ntoken);
 }
 
-void		shift_empty(char **tokens)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		if (ft_strlen(tokens[i]) == 0)
-		{
-			j = 0;
-			ft_strdel(&(tokens[i]));
-			while (tokens[i + j + 1] != NULL)
-			{
-				tokens[i + j] = tokens[i + j + 1];
-				j++;
-			}
-			tokens[i + j] = NULL;
-		}
-		i++;
-	}
-}
-
-int			parse_input(const char *str_i, char **tokens, char **env)
+int				parse_input(const char *str_i, char **tokens, char **env)
 {
 	unsigned char	in_word;
 	size_t			ntoken;
@@ -121,6 +98,6 @@ int			parse_input(const char *str_i, char **tokens, char **env)
 			start = i;
 		i++;
 	}
-	shift_empty(tokens);
+	shift_empty_array(tokens);
 	return (0);
 }

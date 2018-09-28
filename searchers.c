@@ -6,14 +6,14 @@
 /*   By: jmarquet <jmarquet@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/25 18:18:10 by jmarquet     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 03:42:07 by jmarquet    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 05:11:52 by jmarquet    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int				add_path(char **tokens, char *path)
+static int		add_path(char **tokens, char *path)
 {
 	char	*tmp;
 	size_t	lent;
